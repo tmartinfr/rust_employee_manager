@@ -37,18 +37,27 @@ impl EmployeeBook {
         let mut ret = String::new();
         for (department, employee_list) in &self.data {
             ret.push_str(&format!("{} :\n", department));
-            for employee in employee_list.iter() {
-                ret.push_str(&format!("- {}\n", employee));
-            }
+            ret.push_str(&EmployeeBook::list_employees(employee_list));
         }
         ret
     }
 
     fn list_employee_from_department(&self, department: &str) -> String {
-        String::from(format!(
-            "Listing employee from department {} is not implemented",
-            department
-        ))
+        if let Some(employee_list) = self.data.get(department) {
+            return EmployeeBook::list_employees(employee_list);
+        } else {
+            return String::from(format!("Department {} does not exist", department));
+        }
+    }
+
+    fn list_employees(employee_list: &Vec<String>) -> String {
+        let mut ret = String::new();
+        let mut employee_list = employee_list.clone();
+        employee_list.sort_unstable();
+        for employee in employee_list.iter() {
+            ret.push_str(&format!("- {}\n", employee));
+        }
+        ret
     }
 }
 
