@@ -6,9 +6,9 @@ struct EmployeeBook {
 }
 
 impl EmployeeBook {
-    fn new() -> EmployeeBook {
+    fn new() -> Self {
         let data = HashMap::new();
-        EmployeeBook { data: data }
+        Self { data: data }
     }
 
     fn add_employee_to_department(&mut self, new_employee: &str, department: &str) -> String {
@@ -37,14 +37,14 @@ impl EmployeeBook {
         let mut ret = String::new();
         for (department, employee_list) in &self.data {
             ret.push_str(&format!("{} :\n", department));
-            ret.push_str(&EmployeeBook::list_employees(employee_list));
+            ret.push_str(&Self::list_employees(employee_list));
         }
         ret
     }
 
     fn list_employee_from_department(&self, department: &str) -> String {
         if let Some(employee_list) = self.data.get(department) {
-            return EmployeeBook::list_employees(employee_list);
+            return Self::list_employees(employee_list);
         } else {
             return String::from(format!("Department {} does not exist", department));
         }
