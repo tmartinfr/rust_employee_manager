@@ -59,3 +59,16 @@ impl EmployeeBook {
         ret
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::EmployeeBook;
+
+    #[test]
+    fn list_employee_from_department() {
+        let mut book = EmployeeBook::new();
+        book.add_employee_to_department("Gaston Lagaffe", "R&D");
+        let employee_list = book.list_employee_from_department("R&D");
+        assert_eq!(employee_list, "- Gaston Lagaffe\n");
+    }
+}
